@@ -1,12 +1,16 @@
 version: "3"
 services:
+  nginx:
+    ports:
+      - "3000:80"
+
   node-app:
+    tty: true
     build:
       context: .
       args:
         NODE_ENV: development
-    ports:
-      - "3000:3000"
+
     environment:
       - PORT=3000
       - NODE_ENV=development

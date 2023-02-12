@@ -10,8 +10,8 @@ const {
   MONGO_PASSWORD,
   MONGO_PORT,
   REDIS_URL,
-  SESSION_SECRET,
   REDIS_PORT,
+  SESSION_SECRET,
 } = require("./config/config");
 
 let redisClient = redis.createClient({
@@ -40,25 +40,28 @@ const connectWithRetry = () => {
 
 connectWithRetry();
 
-app.use(express.json());
+app.enable("trust proxy");
 
+// NOTE: should state the session before first middleware(app.use(express,json()))
 app.use(
   session({
     store: new RedisStore({ client: redisClient }),
-    saveUninitialized: false,
     secret: SESSION_SECRET,
     cookie: {
-      secure: false,
-      resave: false,
       saveUninitialized: false,
-      httpOnly: true,
+      resave: false,
       maxAge: 30000,
+      secure: false,
+      httpOnly: true,
     },
   })
 );
 
-app.get("/", (req, res) => {
+app.use(express.json());
+
+app.get("/api/v1", (req, res) => {
   res.send("<h2>Hi world!!</h2>");
+  console.log("It is runing !!!!");
 });
 
 app.use("/api/v1/posts", postRouter);
