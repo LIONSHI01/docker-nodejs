@@ -1,0 +1,27 @@
+version: "3"
+services:
+  node-app:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+
+      # NOTE:"depends_on" make sure docker run mongo service first to prevent app crash
+    depends_on:
+      - mongo
+
+  mongo:
+    image: mongo
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=lion
+      - MONGO_INITDB_ROOT_PASSWORD=password
+    volumes:
+      - mongo_db:/data/db
+
+  redis:
+    image: redis
+
+# MUST declera volume here for creating volumes in mongo container(mongo_db:/data/db)
+volumes:
+  mongo_db:
