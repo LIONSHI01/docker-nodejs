@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const session = require("express-session");
 const redis = require("redis");
 let RedisStore = require("connect-redis")(session);
+const cors = require("cors");
 
 const {
   MONGO_USER,
@@ -41,6 +42,7 @@ const connectWithRetry = () => {
 connectWithRetry();
 
 app.enable("trust proxy");
+// app.use(cors({}));
 
 // NOTE: should state the session before first middleware(app.use(express,json()))
 app.use(
