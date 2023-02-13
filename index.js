@@ -25,7 +25,7 @@ const userRouter = require("./routes/userRoutes");
 
 const app = express();
 
-const mongoURL = `mongodb://$${MONGO_USER}:$${MONGO_PASSWORD}@${MONGO_IP}:${MONGO_PORT}/?authSource=admin`;
+const mongoURL = `mongodb://${MONGO_USER}:${MONGO_PASSWORD}@${MONGO_IP}:${MONGO_PORT}/?authSource=admin`;
 
 // NOTE: Inifinite loop to Reconnect mongodb if has error or when db is ready
 const connectWithRetry = () => {
