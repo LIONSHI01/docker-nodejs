@@ -50,8 +50,8 @@ app.use(
     store: new RedisStore({ client: redisClient }),
     secret: SESSION_SECRET,
     cookie: {
-      saveUninitialized: false,
-      resave: false,
+      // saveUninitialized: false,
+      // resave: false,
       maxAge: 30000,
       secure: false,
       httpOnly: true,
